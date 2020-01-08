@@ -1,16 +1,15 @@
-import { createStore } from 'redux';
+import React from 'react';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import { fetchBooks } from './actions/books'
+import MoreBooks from './MoreBooks';
 
-const reducer = (state, action) =>
-	action.type === 'INC'
-		? state + 1
-		: state;
+import store from './store';
+window.store = store;
 
-const initialState = 0;
-
-const store = createStore(reducer, initialState);
-
-store.subscribe(() => document.getElementById('counter').innerText = store.getState());
-
-setInterval(() => store.dispatch({ type: 'INC' }), 500);
-
-console.log("Redux started");
+render(
+	<Provider store={store}>
+		<MoreBooks />
+	</Provider>,
+	document.getElementById('app')
+)
